@@ -65,7 +65,7 @@ from utils import visualization_utils as vis_util
 
 
 # What model to download.
-MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17'
+MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17' # faster_rcnn_resnet101_kitti_2018_01_28
 MODEL_FILE = MODEL_NAME + '.tar.gz'
 DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 
@@ -73,7 +73,7 @@ DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 PATH_TO_CKPT = MODEL_NAME + '/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt')
+PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt') #oid_bbox_trainable_label_map.pbtxt
 
 NUM_CLASSES = 90
 
@@ -208,18 +208,18 @@ def get_object(TEST_IMAGE_PATHS):
     # Actual detection.
     output_dict = run_inference_for_single_image(image_np, detection_graph)
     # Visualization of the results of a detection.
-    vis_util.visualize_boxes_and_labels_on_image_array(
-        image_np,
-        output_dict['detection_boxes'],
-        output_dict['detection_classes'],
-        output_dict['detection_scores'],
-        category_index,
-        instance_masks=output_dict.get('detection_masks'),
-        use_normalized_coordinates=True,
-        line_thickness=8)
-    plt.figure(figsize=IMAGE_SIZE)
-    plt.imshow(image_np)
-    plt.imsave(str(i)+'.jpg', image_np)
+    # vis_util.visualize_boxes_and_labels_on_image_array(
+    #     image_np,
+    #     output_dict['detection_boxes'],
+    #     output_dict['detection_classes'],
+    #     output_dict['detection_scores'],
+    #     category_index,
+    #     instance_masks=output_dict.get('detection_masks'),
+    #     use_normalized_coordinates=True,
+    #     line_thickness=8)
+    # plt.figure(figsize=IMAGE_SIZE)
+    # plt.imshow(image_np)
+    # plt.imsave(str(i)+'.jpg', image_np)
     i += 1
   return output_dict
 
@@ -255,3 +255,4 @@ def get_one_object(image_path, use_path=1):
   
 if __name__ == '__main__':
   output_dict = get_object(TEST_IMAGE_PATHS)
+  print output_dict
